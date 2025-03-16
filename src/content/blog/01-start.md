@@ -6,7 +6,7 @@ pubDate: 2025-01-01
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices purus eros, non placerat odio volutpat ac. Nullam varius orci vitae quam consequat, in bibendum purus sagittis. Morbi efficitur imperdiet turpis, ac semper turpis malesuada non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus mattis dapibus enim nec posuere. Quisque molestie quam at placerat volutpat. Sed faucibus iaculis ipsum sit amet hendrerit. Vestibulum a elit mollis, sollicitudin neque a, aliquam dolor. Morbi vulputate tellus id pharetra condimentum.
 
-![A descriptive alt text for the image](/images/IMG_1038.jpeg)
+![A descriptive alt text for the image](/images/01/IMG_1038.jpeg)
 
 Nullam imperdiet venenatis dignissim. Etiam ornare lorem eget nulla laoreet, nec semper libero efficitur. Donec lobortis, nulla lacinia pulvinar tincidunt, velit massa elementum dui, ut ullamcorper elit turpis eu justo. In eget quam condimentum, pulvinar sapien vitae, hendrerit neque. Fusce pharetra congue augue, eget malesuada libero volutpat at. Sed hendrerit ipsum ut augue euismod dapibus. Nulla consectetur ullamcorper tortor, a malesuada arcu consequat tincidunt. Curabitur rutrum euismod lacus, id vulputate orci blandit sit amet. Donec egestas libero ac lectus egestas lacinia. Duis lobortis euismod maximus. Praesent ante arcu, interdum ac ultricies vel, condimentum non dui. Cras ultrices nisl eget enim tempor, et malesuada lectus facilisis. Nullam lectus nisl, faucibus ut fermentum porttitor, tristique at purus. Sed dictum molestie odio quis blandit.
 
