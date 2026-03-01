@@ -2,8 +2,8 @@
 title: "Boss DS-1: The Distortion Pedal Everyone Owns"
 date: 2026-02-27
 description: "A look at the DS-1 — ubiquitous, polarizing, and still worth talking about after 40+ years."
-pedal:
-  brand: Boss
+gear:
+  make: Boss
   model: DS-1
 tags: [distortion, boss, budget, classic]
 ---

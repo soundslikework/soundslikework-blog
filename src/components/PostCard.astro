@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, date, description, coverImage, pedal, tags, author } = post.data;
+const { title, date, description, coverImage, gear, tags, author } = post.data;
 const url = `/posts/${post.slug}`;
 
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -24,7 +24,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
       <div class="mb-4 overflow-hidden rounded-sm">
         <Image
           src={coverImage}
-          alt={`${pedal?.brand ?? ''} ${pedal?.model ?? title}`}
+          alt={`${gear?.make ?? ''} ${gear?.model ?? title}`}
           width={680}
           height={400}
           class="w-full object-cover h-48 grayscale group-hover:grayscale-0 transition-all duration-500"
@@ -34,9 +34,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
       <div class="mb-4 h-1 w-12 bg-accent/30 group-hover:bg-accent/60 transition-colors duration-300 rounded-full"></div>
     )}
     <div>
-      {pedal && (
+      {gear && (
         <p class="font-mono text-accent text-[10px] uppercase tracking-[0.2em] font-medium mb-1">
-          {pedal.brand} / {pedal.model}
+          {gear.make} / {gear.model}
         </p>
       )}
       <h2 class="font-serif text-xl font-bold text-ink group-hover:text-accent transition-colors mb-2 leading-snug">

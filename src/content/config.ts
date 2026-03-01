@@ -9,9 +9,9 @@ const posts = defineCollection({
       description: z.string(),
       author: z.string().optional(),
       coverImage: image().optional(),
-      pedal: z
+      gear: z
         .object({
-          brand: z.string(),
+          make: z.string(),
           model: z.string(),
         })
         .optional(),
