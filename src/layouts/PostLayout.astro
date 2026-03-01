@@ -21,8 +21,8 @@ const formattedDate = date.toLocaleDateString('en-US', {
 // Build an absolute URL for og:image if the post has a cover image.
 // Astro's image optimizer resolves `coverImage` to a final URL at build time;
 // cast via `as any` because the type reflects the import, not the built output.
-const ogImage = coverImage
-  ? new URL((coverImage as any).src, Astro.site ?? 'https://soundslike.work').href
+const ogImage = coverImage && Astro.site
+  ? new URL((coverImage as any).src, Astro.site).href
   : undefined;
 ---
 
