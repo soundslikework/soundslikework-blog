@@ -51,7 +51,7 @@ ${gearBlock}tags: ${tagsBlock}
 
 `;
 
-const filePath = join(postsDir, `${slug}.md`);
+const filePath = join(postsDir, `${slug}.mdx`);
 
 if (existsSync(filePath)) {
   console.error(`\nFile already exists: ${filePath}`);
@@ -59,4 +59,4 @@ if (existsSync(filePath)) {
 }
 
 writeFileSync(filePath, frontmatter);
-console.log(`\nCreated: src/content/posts/${slug}.md`);
+console.log(`\nCreated: src/content/posts/${slug}.mdx`);
