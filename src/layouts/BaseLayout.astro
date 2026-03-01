@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -7,7 +7,11 @@ interface Props {
   ogImage?: string; // absolute URL for og:image; omit for non-post pages
 }
 
-const { title, description = 'Gear reviews — guitars, pedals, amps, and basses.', ogImage } = Astro.props;
+const {
+  title,
+  description = "Sounds Like Work — music gear reviews and thoughts",
+  ogImage,
+} = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 const grainStyle = `background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 256px 256px;`;
 ---
@@ -33,7 +37,10 @@ const grainStyle = `background-image: url("data:image/svg+xml,%3Csvg viewBox='0 
     <meta property="og:url" content={canonicalURL} />
     {ogImage && <meta property="og:image" content={ogImage} />}
     <!-- Twitter / X Card -->
-    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta
+      name="twitter:card"
+      content={ogImage ? "summary_large_image" : "summary"}
+    />
     <meta name="twitter:title" content={`${title} — Sounds Like Work`} />
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
@@ -44,7 +51,8 @@ const grainStyle = `background-image: url("data:image/svg+xml,%3Csvg viewBox='0 
     <div
       class="pointer-events-none fixed inset-0 z-50 opacity-[0.03]"
       style={grainStyle}
-    ></div>
+    >
+    </div>
     <slot />
   </body>
 </html>
