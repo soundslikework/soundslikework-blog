@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-paper: #F5F0E8;
+  --color-ink: #1C1917;
+  --color-rust: #B45309;
+  --color-rust-light: #D97706;
+  --color-rust-dark: #92400E;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: system-ui, sans-serif;
+}
+
+/* Custom prose theme for retro aesthetic — used as `prose-retro` class */
+.prose-retro {
+  --tw-prose-body: var(--color-ink);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-links: var(--color-rust);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-quotes: var(--color-ink);
+}
