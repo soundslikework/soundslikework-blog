@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Image from "astro/components/Image.astro";
+import about from "../assets/images/about/sounds-like-work.jpg";
 ---
 
 <BaseLayout title="About" description="About Sounds Like Work.">
@@ -11,12 +13,19 @@ import Footer from "../components/Footer.astro";
     <div class="prose prose-retro max-w-none font-body leading-relaxed">
       <p>I make nasty, noisy feedbacky music.</p>
       <p>
-        My name is Adam and this is another blog I'm starting with this title
-        that I picked at random when I was like 18. I've been playing guitar for
-        20+ years - it's high time I started cataloging my thoughts on the
-        things I use and enjoy. You're welcome to follow along.
+        This is yet another blog I'm starting with this title that I picked at
+        random when I was about 18. I've been playing guitar for 20+ years -
+        it's high time I started cataloging my thoughts on the things I use and
+        enjoy. You're welcome to follow along.
       </p>
+      <Image
+        src={about}
+        alt="Sounds like work"
+        width={200}
+        height={200}
+        class="rounded-lg"
+      />
+      <Footer />
     </div>
-  </main>
-  <Footer />
-</BaseLayout>
+  </main></BaseLayout
+>
