@@ -7,9 +7,12 @@ const navLinks = [
 ];
 ---
 
-<header class="border-b border-ink/20 py-6 px-6 md:px-8">
-  <div class="max-w-2xl mx-auto flex items-baseline justify-between">
-    <a href="/" class="font-serif text-2xl font-bold text-ink no-underline hover:text-rust transition-colors">
+<div class="h-0.5 bg-linear-to-r from-accent-dark via-accent to-accent-light w-full"></div>
+
+<header class="border-b border-ink/20 py-5">
+  <div class="max-w-2xl mx-auto px-6 md:px-8 flex items-baseline justify-between">
+    <a href="/" class="font-serif text-2xl font-bold text-ink no-underline hover:text-accent transition-colors flex items-baseline gap-2">
+      <span class="signal-dot text-accent text-[10px] leading-none relative -top-0.5">●</span>
       Sounds Like Work
     </a>
     <nav>
@@ -18,10 +21,10 @@ const navLinks = [
           <li>
             <a
               href={href}
-              class={`text-sm uppercase tracking-widest transition-colors no-underline ${
+              class={`font-mono text-xs uppercase tracking-widest transition-colors no-underline ${
                 currentPath === href
-                  ? 'text-rust font-semibold'
-                  : 'text-ink/70 hover:text-rust'
+                  ? 'text-accent font-medium'
+                  : 'text-ink/70 hover:text-accent'
               }`}
             >
               {label}

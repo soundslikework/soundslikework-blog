@@ -1,20 +1,30 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import PostCard from '../components/PostCard.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PostCard from "../components/PostCard.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('posts')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+const posts = (await getCollection("posts")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 ---
 
 <BaseLayout title="Home" description="Guitar pedal reviews and demos.">
   <Header />
   <main class="max-w-2xl mx-auto px-6 md:px-8 py-12">
-    <h1 class="font-serif text-4xl font-bold mb-2">All Posts</h1>
-    <p class="text-ink/60 mb-10 text-sm uppercase tracking-widest">Guitar pedal reviews &amp; demos</p>
+    <div class="mb-12">
+      <h1 class="font-serif text-4xl font-bold text-ink mb-3">All Posts</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-8 bg-accent opacity-50"></div>
+        <p
+          class="font-mono text-[10px] text-ink/50 uppercase tracking-[0.25em]"
+        >
+          Gear reviews &amp; demos
+        </p>
+        <div class="h-px flex-1 bg-ink/10"></div>
+      </div>
+    </div>
     <div>
       {posts.map((post) => <PostCard post={post} />)}
     </div>

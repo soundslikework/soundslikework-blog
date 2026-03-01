@@ -2,22 +2,104 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-paper: #F5F0E8;
-  --color-ink: #1C1917;
-  --color-rust: #B45309;
-  --color-rust-light: #D97706;
-  --color-rust-dark: #92400E;
+  --color-paper: #F0EFEB;
+  --color-ink: #1A1A1A;
+  --color-accent: #3D6B5E;
+  --color-accent-light: #57867A;
+  --color-accent-dark: #2C4F45;
 
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: system-ui, sans-serif;
+  --font-body: "Lora", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
 }
 
-/* Custom prose theme for retro aesthetic — used as `prose-retro` class */
+body {
+  font-family: var(--font-body);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-paper);
+}
+
+@keyframes signal-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+.signal-dot {
+  animation: signal-pulse 3s ease-in-out infinite;
+}
+
+.post-divider {
+  border: none;
+  position: relative;
+  height: 1.5rem;
+  margin: 2rem 0;
+}
+
+.post-divider::before {
+  content: "· · ◆ · ·";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--color-accent);
+  opacity: 0.6;
+}
+
+/* Custom prose theme — used as `prose-retro` class */
 .prose-retro {
   --tw-prose-body: var(--color-ink);
   --tw-prose-headings: var(--color-ink);
-  --tw-prose-links: var(--color-rust);
+  --tw-prose-links: var(--color-accent);
   --tw-prose-bold: var(--color-ink);
   --tw-prose-code: var(--color-ink);
   --tw-prose-quotes: var(--color-ink);
+  --tw-prose-quote-borders: var(--color-accent);
+  font-family: var(--font-body);
+}
+
+.prose-retro blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.25rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.prose-retro a {
+  color: var(--color-accent);
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 200ms ease;
+}
+
+.prose-retro a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.prose-retro h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-retro h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-retro > p:first-of-type::first-letter {
+  font-family: var(--font-serif);
+  font-size: 3.5em;
+  font-weight: 700;
+  color: var(--color-accent);
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  margin-top: 0.05em;
 }

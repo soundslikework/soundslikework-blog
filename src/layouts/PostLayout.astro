@@ -32,19 +32,21 @@ const ogImage = coverImage && Astro.site
     <article>
       <header class="mb-10">
         {pedal && (
-          <p class="text-rust text-xs uppercase tracking-widest font-semibold mb-2">
-            {pedal.brand} — {pedal.model}
+          <p class="font-mono text-accent text-[10px] uppercase tracking-[0.25em] font-medium mb-3 flex items-center gap-2">
+            <span class="inline-block w-3 h-px bg-accent opacity-60"></span>
+            {pedal.brand} / {pedal.model}
+            <span class="inline-block w-3 h-px bg-accent opacity-60"></span>
           </p>
         )}
         <h1 class="font-serif text-4xl font-bold text-ink mb-4 leading-tight">{title}</h1>
-        <p class="text-ink/60 text-lg mb-6">{description}</p>
+        <p class="font-body text-ink/60 text-lg mb-6 leading-relaxed">{description}</p>
         <div class="flex items-center gap-4 text-sm text-ink/50 mb-6">
-          <time class="uppercase tracking-wide text-xs">{formattedDate}</time>
-          {author && <span>by {author}</span>}
+          <time class="font-mono uppercase tracking-[0.15em] text-[10px]">{formattedDate}</time>
+          {author && <span class="font-mono text-[10px]">by {author}</span>}
           {tags.length > 0 && (
             <div class="flex gap-2">
               {tags.map((tag) => (
-                <a href={`/tags/${tag}`} class="text-rust/80 hover:text-rust uppercase tracking-wide text-xs transition-colors">
+                <a href={`/tags/${tag}`} class="font-mono text-accent/80 hover:text-accent uppercase tracking-[0.15em] text-[10px] transition-colors">
                   #{tag}
                 </a>
               ))}
@@ -60,9 +62,9 @@ const ogImage = coverImage && Astro.site
             class="w-full rounded-sm object-cover"
           />
         )}
-        <hr class="border-ink/20 mt-8" />
+        <div class="post-divider" role="separator" aria-hidden="true"></div>
       </header>
-      <div class="prose prose-retro max-w-none font-sans leading-relaxed">
+      <div class="prose prose-retro max-w-none leading-relaxed">
         <slot />
       </div>
     </article>

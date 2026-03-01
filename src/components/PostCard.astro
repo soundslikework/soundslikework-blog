@@ -17,9 +17,10 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<article class="border-b border-ink/15 py-8 group">
+<article class="border-b border-ink/15 py-8 group relative pl-0 hover:pl-4 transition-all duration-300">
+  <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-accent scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
   <a href={url} class="no-underline block">
-    {coverImage && (
+    {coverImage ? (
       <div class="mb-4 overflow-hidden rounded-sm">
         <Image
           src={coverImage}
@@ -29,34 +30,33 @@ const formattedDate = date.toLocaleDateString('en-US', {
           class="w-full object-cover h-48 grayscale group-hover:grayscale-0 transition-all duration-500"
         />
       </div>
+    ) : (
+      <div class="mb-4 h-1 w-12 bg-accent/30 group-hover:bg-accent/60 transition-colors duration-300 rounded-full"></div>
     )}
-    <div class="flex items-start justify-between gap-4">
-      <div>
-        {pedal && (
-          <p class="text-rust text-xs uppercase tracking-widest font-semibold mb-1">
-            {pedal.brand} {pedal.model}
-          </p>
-        )}
-        <h2 class="font-serif text-xl font-bold text-ink group-hover:text-rust transition-colors mb-2">
-          {title}
-        </h2>
-        <p class="text-ink/70 text-sm leading-relaxed">{description}</p>
-      </div>
-    </div>
-    <div class="flex items-center gap-4 mt-3">
-      <time class="text-xs text-ink/50 uppercase tracking-wide">{formattedDate}</time>
-      {author && <span class="text-xs text-ink/50">by {author}</span>}
-      <div class="flex gap-2">
-        {tags.map((tag) => (
-          <a
-            href={`/tags/${tag}`}
-            class="text-xs text-rust/80 hover:text-rust uppercase tracking-wide transition-colors"
-            onclick="event.stopPropagation()"
-          >
-            #{tag}
-          </a>
-        ))}
-      </div>
+    <div>
+      {pedal && (
+        <p class="font-mono text-accent text-[10px] uppercase tracking-[0.2em] font-medium mb-1">
+          {pedal.brand} / {pedal.model}
+        </p>
+      )}
+      <h2 class="font-serif text-xl font-bold text-ink group-hover:text-accent transition-colors mb-2 leading-snug">
+        {title}
+      </h2>
+      <p class="font-body text-ink/70 text-sm leading-relaxed">{description}</p>
     </div>
   </a>
+  <div class="flex items-center gap-4 mt-3">
+    <time class="font-mono text-[10px] text-ink/50 uppercase tracking-[0.15em]">{formattedDate}</time>
+    {author && <span class="font-mono text-[10px] text-ink/50">by {author}</span>}
+    <div class="flex gap-2">
+      {tags.map((tag) => (
+        <a
+          href={`/tags/${tag}`}
+          class="font-mono text-[10px] text-accent/70 hover:text-accent uppercase tracking-[0.15em] transition-colors"
+        >
+          #{tag}
+        </a>
+      ))}
+    </div>
+  </div>
 </article>
