@@ -1,4 +1,4 @@
-# soundslikework-blog
+# [soundslikework](https://www.soundslike.work)
 
 Music blog built with Astro, Tailwind CSS, and deployed to Cloudflare.
 
