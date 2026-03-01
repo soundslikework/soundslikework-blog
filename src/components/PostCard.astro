@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, date, description, coverImage, pedal, tags, author } = post.data;
+const url = `/posts/${post.slug}`;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="border-b border-ink/15 py-8 group">
+  <a href={url} class="no-underline block">
+    {coverImage && (
+      <div class="mb-4 overflow-hidden rounded-sm">
+        <Image
+          src={coverImage}
+          alt={`${pedal?.brand ?? ''} ${pedal?.model ?? title}`}
+          width={680}
+          height={400}
+          class="w-full object-cover h-48 grayscale group-hover:grayscale-0 transition-all duration-500"
+        />
+      </div>
+    )}
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        {pedal && (
+          <p class="text-rust text-xs uppercase tracking-widest font-semibold mb-1">
+            {pedal.brand} {pedal.model}
+          </p>
+        )}
+        <h2 class="font-serif text-xl font-bold text-ink group-hover:text-rust transition-colors mb-2">
+          {title}
+        </h2>
+        <p class="text-ink/70 text-sm leading-relaxed">{description}</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-4 mt-3">
+      <time class="text-xs text-ink/50 uppercase tracking-wide">{formattedDate}</time>
+      {author && <span class="text-xs text-ink/50">by {author}</span>}
+      <div class="flex gap-2">
+        {tags.map((tag) => (
+          <a
+            href={`/tags/${tag}`}
+            class="text-xs text-rust/80 hover:text-rust uppercase tracking-wide transition-colors"
+            onclick="event.stopPropagation()"
+          >
+            #{tag}
+          </a>
+        ))}
+      </div>
+    </div>
+  </a>
+</article>
