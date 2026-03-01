@@ -1,5 +1,6 @@
 ---
 const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -11,10 +12,19 @@ const navLinks = [
 
 <header class="border-b border-ink/20 py-5">
   <div class="max-w-2xl mx-auto px-6 md:px-8 flex items-baseline justify-between">
-    <a href="/" class="font-serif text-2xl font-bold text-ink no-underline hover:text-accent transition-colors flex items-baseline gap-2">
-      <span class="signal-dot text-accent text-[10px] leading-none relative -top-0.5">●</span>
-      Sounds Like Work
-    </a>
+    {isHome ? (
+      <h1 class="font-serif text-2xl font-bold text-ink m-0 p-0 leading-none">
+        <a href="/" class="no-underline hover:text-accent transition-colors flex items-baseline gap-2">
+          <span class="signal-dot text-accent text-[10px] leading-none relative -top-0.5">●</span>
+          Sounds Like Work
+        </a>
+      </h1>
+    ) : (
+      <a href="/" class="font-serif text-2xl font-bold text-ink no-underline hover:text-accent transition-colors flex items-baseline gap-2">
+        <span class="signal-dot text-accent text-[10px] leading-none relative -top-0.5">●</span>
+        Sounds Like Work
+      </a>
+    )}
     <nav>
       <ul class="flex gap-6 list-none m-0 p-0">
         {navLinks.map(({ href, label }) => (
