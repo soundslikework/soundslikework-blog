@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="About" description="About Sounds Like Work.">
+  <Header />
+  <main class="max-w-2xl mx-auto px-6 md:px-8 py-12">
+    <h1 class="font-serif text-4xl font-bold mb-6">About</h1>
+    <div class="prose prose-retro max-w-none font-sans leading-relaxed">
+      <p>
+        Sounds Like Work is a blog about guitar pedals — the good, the weird, and the overpriced.
+        Reviews, demos, and the occasional deep dive into why a certain circuit sounds the way it does.
+      </p>
+      <p>
+        No scores. No affiliate links. Just writing about gear.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
