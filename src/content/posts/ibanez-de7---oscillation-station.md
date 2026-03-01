@@ -5,16 +5,21 @@ description: "Long a secret weapon, the Ibanez DE7 still doesn't get its due. Th
 gear:
   make: Ibanez
   model: DE7 Delay/Echo
+coverImage: ../../assets/images/posts/ibanez-de7/de7.jpeg
 tags: [delay, ibanez, oscillation]
 ---
 
-I've owned 4 of these since I've been playing. For years, a DE7 was the only delay I could afford - you used to be able to get them for less than $50.
+I've owned 4 of these since I've been playing. I'm down to two now, but will never go below that number. For years, a DE7 was the only delay I could afford - you used to be able to get them for less than $50.
 
 I believe the first time I encountered this was looking at Omar Rodrigeuz-Lopez's rig for The Mars Volta, and when I realized you could still find them for cheap I had to get one.
 
 ## What It Is
 
 At its heart, it's a digital delay without modulation with some interesting filtering and limiting applied to it. I don't really know what the genesis is of it - it's from Ibanez's infamous Tone Lok 7-series of pedals, but the sounds coming out of these don't really fit with the nu-metal aesthetic of those.
+
+This series is infamous for quality problems - the switches go - and having owned so many, I believe it. I've never had one GO BAD, but Ibanez really does cut corners in weird places, and these things are 20+ years old now.
+
+Apparently there are also a few different circuit iterations of this. I have no idea which ones are which, but all of the ones I've ever played have done basically the same thing.
 
 ## What It Does
 
@@ -28,9 +33,11 @@ I had this delay for years and eventually sold it to try some other ones, but fo
 
 So that early experience with the DE7 kind of spoiled me for other delays. If I try out a delay and it doesn't oscillate in the right way, out it goes.
 
-Some delays that do 'the thing' though:
+## Alternatives
+
+Here are some delays that do 'the thing':
 
 - Fairfield Meet Maude
-- Boss DM-2 (there are two versions of this, and the one with the 'bad' chip was often tuned so it couldn't oscillate. Instead, I found that it would generate a pretty good pad under your playing. Was it as good as the DE7? No, but still pretty good. Not sure that's worth what a vintage DM-2 is going for now, though.)
+- Boss DM-2 (there are two versions of this, and the one with the 'bad' chip was often tuned so it couldn't oscillate. Instead, I found that it would generate a pretty good pad under your playing. Was it as good as the DE7? No, but still pretty good. Not sure that's worth what a vintage DM-2 is going for now, though - you could buy 2 or 3 DE7's for that)
 - Earthquaker Space Spiral
 - Demedash T-120 VHS Delay
