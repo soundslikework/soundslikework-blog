@@ -1,0 +1,21 @@
+---
+interface Props {
+  url: string;
+  height?: number;
+}
+
+const { url, height = 166 } = Astro.props;
+const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&color=%23b45309&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
+---
+
+<div class="my-8">
+  <iframe
+    width="100%"
+    height={height}
+    scrolling="no"
+    frameborder="no"
+    src={src}
+    class="rounded-sm"
+    loading="lazy"
+  ></iframe>
+</div>
