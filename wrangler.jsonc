@@ -13,5 +13,13 @@
   "observability": {
     "enabled": true
   },
+  // Replace YOUR_EMAIL with your verified Cloudflare Email Routing destination address.
+  "send_email": [
+    {
+      "name": "SEND_EMAIL",
+      "destination_address": "YOUR_EMAIL@example.com"
+    }
+  ],
+  // TURNSTILE_SECRET_KEY is set via: wrangler secret put TURNSTILE_SECRET_KEY
   "$schema": "node_modules/wrangler/config-schema.json"
 }
