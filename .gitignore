@@ -27,6 +27,9 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# git worktrees
+.worktrees/
+
 # wrangler files
 .wrangler
 .dev.vars*
