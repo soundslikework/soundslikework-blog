@@ -3,7 +3,6 @@
   "name": "soundslikework-blog",
   "compatibility_date": "2025-09-27",
   "compatibility_flags": [
-    "global_fetch_strictly_public",
     "nodejs_compat"
   ],
   "assets": {
@@ -13,5 +12,13 @@
   "observability": {
     "enabled": true
   },
+  // Replace YOUR_EMAIL with your verified Cloudflare Email Routing destination address.
+  "send_email": [
+    {
+      "name": "SEND_EMAIL",
+      "destination_address": "adampaulbrady@gmail.com"
+    }
+  ],
+  // TURNSTILE_SECRET_KEY is set via: wrangler secret put TURNSTILE_SECRET_KEY
   "$schema": "node_modules/wrangler/config-schema.json"
 }

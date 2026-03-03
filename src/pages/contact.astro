@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// PUBLIC_ prefix makes this available to the client-side bundle at build time.
+// In dev, falls back to the Turnstile always-passes test key.
+const siteKeyEnv = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+
+if (!siteKeyEnv && !import.meta.env.DEV) {
+  throw new Error(
+    'Missing PUBLIC_TURNSTILE_SITE_KEY environment variable in production. ' +
+      'Set a valid Cloudflare Turnstile site key to enable CAPTCHA on the contact form.'
+  );
+}
+
+const siteKey = siteKeyEnv ?? '1x00000000000000000000AA';
+---
+
+<BaseLayout title="Contact" description="Get in touch with Sounds Like Work.">
+  <Header />
+  <main class="max-w-2xl mx-auto px-6 md:px-8 py-12">
+    <h1 class="font-serif text-4xl font-bold mb-4">Contact</h1>
+    <p class="font-body text-ink/70 mb-10">Got something to say? Reach out.</p>
+
+    <form id="contact-form" novalidate class="space-y-6">
+      <div>
+        <label
+          for="name"
+          class="block font-mono text-xs uppercase tracking-widest text-ink/60 mb-2"
+          >Name</label
+        >
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          autocomplete="name"
+          class="w-full border border-ink/30 bg-transparent px-4 py-3 font-body text-ink focus:border-accent focus:outline-none transition-colors"
+        />
+      </div>
+
+      <div>
+        <label
+          for="email"
+          class="block font-mono text-xs uppercase tracking-widest text-ink/60 mb-2"
+          >Email</label
+        >
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          autocomplete="email"
+          class="w-full border border-ink/30 bg-transparent px-4 py-3 font-body text-ink focus:border-accent focus:outline-none transition-colors"
+        />
+      </div>
+
+      <div>
+        <label
+          for="message"
+          class="block font-mono text-xs uppercase tracking-widest text-ink/60 mb-2"
+          >Message</label
+        >
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows="6"
+          class="w-full border border-ink/30 bg-transparent px-4 py-3 font-body text-ink focus:border-accent focus:outline-none transition-colors resize-y"
+        ></textarea>
+      </div>
+
+      <!-- Cloudflare Turnstile widget -->
+      <div
+        class="cf-turnstile"
+        data-sitekey={siteKey}
+        data-callback="onTurnstileVerified"
+      ></div>
+
+      <!-- Inline error banner -->
+      <div
+        id="form-error"
+        role="alert"
+        class="hidden font-mono text-xs text-ink bg-accent/10 border border-accent/30 px-4 py-3"
+      ></div>
+
+      <button
+        type="submit"
+        id="submit-btn"
+        class="font-mono text-xs uppercase tracking-widest bg-accent text-paper px-8 py-3 hover:bg-accent-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Send Message
+      </button>
+    </form>
+
+    <!-- Success state (replaces form on submit) -->
+    <div id="success-state" class="hidden">
+      <p class="font-serif text-2xl font-bold text-accent mb-3">Message sent.</p>
+      <p class="font-body text-ink/70">I'll get back to you soon.</p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<!-- Load Cloudflare Turnstile widget -->
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
+></script>
+
+<script>
+  // Expose Turnstile callback globally so the widget can call it.
+  // Astro bundles scripts as ES modules, so we assign to window explicitly.
+  let turnstileToken = '';
+  (window as any).onTurnstileVerified = (token: string) => {
+    turnstileToken = token;
+  };
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const errorEl = document.getElementById('form-error') as HTMLDivElement;
+  const successEl = document.getElementById('success-state') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim();
+
+    clearError();
+    setLoading(true);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message, cfTurnstileResponse: turnstileToken }),
+      });
+
+      const data = (await res.json()) as { success?: boolean; error?: string };
+
+      if (data.success) {
+        form.classList.add('hidden');
+        successEl.classList.remove('hidden');
+      } else {
+        showError(data.error ?? 'Something went wrong. Please try again.');
+        resetTurnstile();
+      }
+    } catch {
+      showError('Something went wrong. Please try again.');
+      resetTurnstile();
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  function setLoading(loading: boolean) {
+    submitBtn.disabled = loading;
+    submitBtn.textContent = loading ? 'Sending…' : 'Send Message';
+  }
+
+  function clearError() {
+    errorEl.textContent = '';
+    errorEl.classList.add('hidden');
+  }
+
+  function showError(msg: string) {
+    errorEl.textContent = msg;
+    errorEl.classList.remove('hidden');
+    errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetTurnstile() {
+    if ((window as any).turnstile) {
+      (window as any).turnstile.reset();
+      turnstileToken = '';
+    }
+  }
+</script>

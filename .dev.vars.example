@@ -1,0 +1,5 @@
+# Cloudflare Turnstile secret key — used by the Worker to verify tokens server-side.
+# Copy this file to .dev.vars and fill in your value for local testing with `npm run preview`.
+# For production, set via: wrangler secret put TURNSTILE_SECRET_KEY
+# Dev test secret (always passes): 1x0000000000000000000000000000000AA
+TURNSTILE_SECRET_KEY=your-turnstile-secret-key
