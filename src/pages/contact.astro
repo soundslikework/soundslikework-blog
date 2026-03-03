@@ -5,8 +5,16 @@ import Footer from '../components/Footer.astro';
 
 // PUBLIC_ prefix makes this available to the client-side bundle at build time.
 // In dev, falls back to the Turnstile always-passes test key.
-const siteKey =
-  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x00000000000000000000AA';
+const siteKeyEnv = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+
+if (!siteKeyEnv && !import.meta.env.DEV) {
+  throw new Error(
+    'Missing PUBLIC_TURNSTILE_SITE_KEY environment variable in production. ' +
+      'Set a valid Cloudflare Turnstile site key to enable CAPTCHA on the contact form.'
+  );
+}
+
+const siteKey = siteKeyEnv ?? '1x00000000000000000000AA';
 ---
 
 <BaseLayout title="Contact" description="Get in touch with Sounds Like Work.">
