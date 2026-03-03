@@ -3,7 +3,6 @@
   "name": "soundslikework-blog",
   "compatibility_date": "2025-09-27",
   "compatibility_flags": [
-    "global_fetch_strictly_public",
     "nodejs_compat"
   ],
   "assets": {
@@ -17,7 +16,7 @@
   "send_email": [
     {
       "name": "SEND_EMAIL",
-      "destination_address": "YOUR_EMAIL@example.com"
+      "destination_address": "adampaulbrady@gmail.com"
     }
   ],
   // TURNSTILE_SECRET_KEY is set via: wrangler secret put TURNSTILE_SECRET_KEY
