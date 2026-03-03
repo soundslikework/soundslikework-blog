@@ -12,7 +12,7 @@
   "observability": {
     "enabled": true
   },
-  // Replace YOUR_EMAIL with your verified Cloudflare Email Routing destination address.
+  // SEND_EMAIL destination_address must match your verified Cloudflare Email Routing address.
   "send_email": [
     {
       "name": "SEND_EMAIL",

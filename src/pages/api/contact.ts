@@ -2,13 +2,12 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-// Replace with the same address used in wrangler.jsonc send_email.destination_address
-const CONTACT_TO = 'adampaulbrady@gmail.com';
 const CONTACT_FROM = 'contact@soundslike.work';
 
 interface CloudflareEnv {
   SEND_EMAIL?: { send(message: unknown): Promise<void> };
   TURNSTILE_SECRET_KEY?: string;
+  CONTACT_TO?: string;
 }
 
 function json(body: object, status = 200) {
@@ -25,6 +24,7 @@ function sanitizeHeader(value: string): string {
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = ((locals as any).runtime?.env ?? {}) as CloudflareEnv;
+  const CONTACT_TO = env.CONTACT_TO ?? '';
 
   let name: unknown, email: unknown, message: unknown, cfTurnstileResponse: unknown;
   try {
