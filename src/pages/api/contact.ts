@@ -33,7 +33,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ error: 'Invalid request.' }, 400);
   }
 
-  if (typeof name !== 'string' || typeof email !== 'string' || typeof message !== 'string') {
+  if (typeof name !== 'string' || typeof email !== 'string' || typeof message !== 'string' || typeof cfTurnstileResponse !== 'string') {
     return json({ error: 'Invalid request.' }, 400);
   }
 
@@ -96,7 +96,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ success: true });
   }
 
-  // @ts-ignore
   const { EmailMessage } = await import('cloudflare:email');
   try {
     await env.SEND_EMAIL.send(new EmailMessage(CONTACT_FROM, CONTACT_TO, rawEmail));
