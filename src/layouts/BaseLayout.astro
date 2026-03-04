@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import { SEO } from 'astro-seo';
+import type { TwitterCardType } from 'astro-seo';
 
 interface Props {
   title: string;
@@ -14,6 +16,28 @@ const {
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 const grainStyle = `background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 256px 256px;`;
+
+const seoProps = {
+  title: `${title} — Sounds Like Work`,
+  description: description,
+  canonical: canonicalURL.toString(),
+  ...(ogImage && {
+    openGraph: {
+      basic: {
+        title: `${title} — Sounds Like Work`,
+        type: "website",
+        image: ogImage,
+        url: canonicalURL.toString(),
+      },
+    },
+  }),
+  twitter: {
+    card: (ogImage ? "summary_large_image" : "summary") as TwitterCardType,
+    title: `${title} — Sounds Like Work`,
+    description: description,
+    ...(ogImage && { image: ogImage }),
+  },
+};
 ---
 
 <!doctype html>
@@ -21,8 +45,6 @@ const grainStyle = `background-image: url("data:image/svg+xml,%3Csvg viewBox='0 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,21 +52,7 @@ const grainStyle = `background-image: url("data:image/svg+xml,%3Csvg viewBox='0 
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={`${title} — Sounds Like Work`} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <!-- Twitter / X Card -->
-    <meta
-      name="twitter:card"
-      content={ogImage ? "summary_large_image" : "summary"}
-    />
-    <meta name="twitter:title" content={`${title} — Sounds Like Work`} />
-    <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
-    <title>{title} — Sounds Like Work</title>
+    <SEO {...seoProps} />
   </head>
   <body class="bg-paper text-ink min-h-screen">
     <!-- Paper grain overlay -->
