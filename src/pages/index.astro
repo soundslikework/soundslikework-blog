@@ -51,7 +51,7 @@ const formattedDate = featured?.data.date.toLocaleDateString("en-US", {
             </p>
             <div class="h-px flex-1 bg-ink/10" />
           </div>
-          <a href={`/posts/${featured.id.replace(/\.mdx?$/, '')}`} class="no-underline group block">
+          <a href={`/posts/${featured.id}`} class="no-underline group block">
             {featured.data.gear && (
               <p class="font-mono text-accent text-[10px] uppercase tracking-[0.2em] font-medium mb-2">
                 {featured.data.gear.make} / {featured.data.gear.model}
