@@ -12,11 +12,11 @@
   "observability": {
     "enabled": true
   },
-  // SEND_EMAIL destination_address must match your verified Cloudflare Email Routing address.
+  // Unrestricted binding — destination set at runtime via CONTACT_TO env var / secret.
+  // Can send to any verified Email Routing address on the Cloudflare account.
   "send_email": [
     {
-      "name": "SEND_EMAIL",
-      "destination_address": "adampaulbrady@gmail.com"
+      "name": "SEND_EMAIL"
     }
   ],
   // TURNSTILE_SECRET_KEY is set via: wrangler secret put TURNSTILE_SECRET_KEY
