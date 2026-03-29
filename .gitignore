@@ -6,6 +6,7 @@ dist/
 # claude docs
 .claude/
 CLAUDE.md
+docs/
 
 # dependencies
 node_modules/
