@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, date, description, coverImage, gear, tags, author } = post.data;
+const { title, seoTitle, date, description, coverImage, gear, tags, author } = post.data;
 
 const formattedDate = date.toLocaleDateString("en-US", {
   year: "numeric",
@@ -27,9 +27,54 @@ const ogImage =
   coverImage && Astro.site
     ? new URL((coverImage as any).src, Astro.site).href
     : undefined;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const displayTitle = seoTitle ?? title;
+const postAuthor = author ?? "Adam Brady";
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: displayTitle,
+  description,
+  datePublished: date.toISOString(),
+  author: { "@type": "Person", name: postAuthor },
+  url: canonicalURL.toString(),
+  publisher: {
+    "@type": "Organization",
+    name: "Sounds Like Work",
+    url: "https://soundslike.work",
+  },
+  ...(ogImage && { image: ogImage }),
+};
+
+const reviewSchema = gear
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Review",
+      itemReviewed: {
+        "@type": "Product",
+        name: `${gear.make} ${gear.model}`,
+        brand: { "@type": "Brand", name: gear.make },
+      },
+      author: { "@type": "Person", name: postAuthor },
+      reviewBody: description,
+      url: canonicalURL.toString(),
+    }
+  : null;
 ---
 
-<BaseLayout title={title} description={description} ogImage={ogImage}>
+<BaseLayout
+  title={title}
+  seoTitle={seoTitle}
+  description={description}
+  ogImage={ogImage}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+    {reviewSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />}
+  </Fragment>
   <Header />
   <main class="max-w-2xl mx-auto px-6 md:px-8 py-12">
     <article>
