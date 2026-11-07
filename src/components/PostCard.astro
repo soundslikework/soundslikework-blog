@@ -27,9 +27,8 @@ const formattedDate = date.toLocaleDateString('en-US', {
         src={coverImage}
         gear={gear}
         title={title}
-        height={featured ? 640 : 384}
         eager={featured}
-        class:list={['object-cover', featured ? 'h-80 mb-5' : 'h-48 mb-4']}
+        class={featured ? 'md:aspect-11/5 mb-5' : 'md:aspect-11/3 mb-4'}
       />
     )}
     {gear && (
