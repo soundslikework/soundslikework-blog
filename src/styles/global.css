@@ -1,35 +1,44 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Families come from the Astro `fonts` config (astro.config.mjs). */
+@theme inline {
+  --font-serif: var(--font-newsreader);
+  --font-mono: var(--font-plex-mono);
+}
+
 @theme {
   --color-paper: #F0EFEB;
-  --color-ink: #1A1A1A;
+  --color-ink: #2D2C29;
+  --color-ink-muted: #66645F;
   --color-accent: #3D6B5E;
   --color-accent-light: #57867A;
   --color-accent-dark: #2C4F45;
 
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: system-ui, sans-serif;
-  --font-body: "Lora", Georgia, serif;
-  --font-mono: "IBM Plex Mono", "Courier New", monospace;
 
-  /* Small mono labels: dates, tags, eyebrows, footer */
-  --text-label: 0.625rem;
-  --text-micro: 0.5625rem;
-  --tracking-label: 0.15em;
-  --tracking-label-wide: 0.2em;
-  --tracking-eyebrow: 0.25em;
-  --tracking-footer: 0.3em;
+  /* Mono dates only */
+  --text-label: 0.6875rem;
+  --tracking-label: 0.12em;
 }
 
 /* Header, main and footer must all use this so columns stay flush. */
 @utility page-container {
-  @apply max-w-2xl mx-auto px-6 md:px-8;
+  @apply max-w-3xl mx-auto px-6 md:px-8;
 }
 
-/* Mono micro-label; pair with a tracking-* and a text color. */
+/* Mono date stamp; add a text color. */
 @utility label {
-  @apply font-mono text-label uppercase;
+  @apply font-mono text-label uppercase tracking-label;
+}
+
+/* Gear "Make / Model" line above titles. */
+@utility gear-name {
+  @apply font-serif italic text-accent text-sm;
+}
+
+/* #tag links: lowercase, no tracking. */
+@utility tag {
+  @apply font-mono text-xs text-accent no-underline hover:underline underline-offset-2;
 }
 
 @utility page-title {
@@ -37,22 +46,19 @@
 }
 
 @utility form-label {
-  @apply block font-mono text-xs uppercase tracking-widest text-ink/60 mb-2;
+  @apply block font-mono text-xs uppercase tracking-widest text-ink-muted mb-2;
 }
 
 @utility form-field {
   @apply w-full border border-ink/30 bg-transparent px-4 py-3 text-ink focus:border-accent focus:outline-none transition-colors;
 }
 
-/* Fixed full-screen paper texture over the page. */
-@utility paper-grain {
-  @apply pointer-events-none fixed inset-0 z-50 opacity-25;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
+html {
+  scrollbar-gutter: stable;
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-serif);
 }
 
 ::selection {
@@ -60,38 +66,9 @@ body {
   color: var(--color-paper);
 }
 
-@keyframes signal-pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.25; }
-}
-
-.signal-dot {
-  animation: signal-pulse 3s ease-in-out infinite;
-}
-
-.post-divider {
-  border: none;
-  position: relative;
-  height: 1.5rem;
-  margin: 2rem 0;
-}
-
-.post-divider::before {
-  content: "· · ◆ · ·";
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  color: var(--color-accent);
-  opacity: 0.6;
-}
-
 /* Custom prose theme — used as `prose-retro` class */
 .prose-retro {
+  @apply prose-lg max-w-none;
   --tw-prose-body: var(--color-ink);
   --tw-prose-headings: var(--color-ink);
   --tw-prose-links: var(--color-accent);
@@ -99,7 +76,11 @@ body {
   --tw-prose-code: var(--color-ink);
   --tw-prose-quotes: var(--color-ink);
   --tw-prose-quote-borders: var(--color-accent);
-  font-family: var(--font-body);
+  font-family: var(--font-serif);
+}
+
+.prose-retro img {
+  border-radius: var(--radius-sm);
 }
 
 .prose-retro blockquote {
@@ -128,15 +109,4 @@ body {
 .prose-retro h3 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-}
-
-.prose-retro > p:first-of-type::first-letter {
-  font-family: var(--font-serif);
-  font-size: 3.5em;
-  font-weight: 700;
-  color: var(--color-accent);
-  float: left;
-  line-height: 0.8;
-  margin-right: 0.1em;
-  margin-top: 0.05em;
 }
