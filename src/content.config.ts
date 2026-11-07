@@ -21,7 +21,7 @@ const posts = defineCollection({
           model: z.string(),
         })
         .optional(),
-      tags: z.array(z.string()).default([]),
+      tags: z.array(z.string().toLowerCase()).default([]),
     }),
 });
 

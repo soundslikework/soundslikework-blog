@@ -1,7 +1,6 @@
 ---
+import { SITE } from "../site";
 import "../styles/global.css";
-import { SEO } from 'astro-seo';
-import type { TwitterCardType } from 'astro-seo';
 
 interface Props {
   title: string;
@@ -9,41 +8,23 @@ interface Props {
   ogImage?: string; // absolute URL for og:image; omit for non-post pages
   seoTitle?: string; // overrides title in <title> tag and og/twitter title
   ogType?: string;   // defaults to "website"; pass "article" for posts
+  noindex?: boolean; // keep thin pages (tags) out of search results
 }
 
 const {
   title,
-  description = "Sounds Like Work — music gear reviews and thoughts",
+  description = SITE.description,
   ogImage,
   seoTitle,
   ogType = "website",
+  noindex = false,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
-const grainStyle = `background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 256px 256px;`;
 
 const displayTitle = seoTitle ?? title;
+const fullTitle = `${displayTitle} — ${SITE.name}`;
 
-const seoProps = {
-  title: `${displayTitle} — Sounds Like Work`,
-  description: description,
-  canonical: canonicalURL.toString(),
-  ...(ogImage && {
-    openGraph: {
-      basic: {
-        title: `${displayTitle} — Sounds Like Work`,
-        type: ogType,
-        image: ogImage,
-        url: canonicalURL.toString(),
-      },
-    },
-  }),
-  twitter: {
-    card: (ogImage ? "summary_large_image" : "summary") as TwitterCardType,
-    title: `${displayTitle} — Sounds Like Work`,
-    description: description,
-    ...(ogImage && { image: ogImage }),
-  },
-};
+const canonical = canonicalURL.toString();
 ---
 
 <!doctype html>
@@ -58,14 +39,27 @@ const seoProps = {
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
-    <SEO {...seoProps} />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE.name} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
     <slot name="head" />
   </head>
   <body class="bg-paper text-ink min-h-screen">
     <!-- Paper grain overlay -->
     <div
-      class="pointer-events-none fixed inset-0 z-50 opacity-[0.25]"
-      style={grainStyle}
+      class="paper-grain"
     >
     </div>
     <slot />

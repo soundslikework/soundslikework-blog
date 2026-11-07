@@ -15,7 +15,8 @@ function slugify(text) {
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .trim()
-    .replace(/\s+/g, '-');
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
 }
 
 function today() {
@@ -43,9 +44,9 @@ const gearBlock =
 const tagsBlock = tags.length > 0 ? `[${tags.join(', ')}]` : '[]';
 
 const frontmatter = `---
-title: "${title}"
+title: ${JSON.stringify(title)}
 date: ${today()}
-description: "${description}"
+description: ${JSON.stringify(description)}
 ${gearBlock}tags: ${tagsBlock}
 ---
 
