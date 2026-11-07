@@ -1,5 +1,6 @@
 import { SITE } from '../../site';
 import type { APIRoute } from 'astro';
+import { env as workerEnv } from 'cloudflare:workers';
 import { buildRawEmail, cleanName, EMAIL_RE } from '../../lib/contactEmail';
 
 export const prerender = false;
@@ -20,13 +21,13 @@ function json(body: object, status = 200) {
   });
 }
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  const env = ((locals as any).runtime?.env ?? {}) as CloudflareEnv;
+export const POST: APIRoute = async ({ request }) => {
+  const env = workerEnv as unknown as CloudflareEnv;
   const CONTACT_TO = env.CONTACT_TO ?? '';
 
   let name: unknown, email: unknown, message: unknown, cfTurnstileResponse: unknown;
   try {
-    ({ name, email, message, cfTurnstileResponse } = await request.json());
+    ({ name, email, message, cfTurnstileResponse } = (await request.json()) as Record<string, unknown>);
   } catch {
     return json({ error: 'Invalid request.' }, 400);
   }
