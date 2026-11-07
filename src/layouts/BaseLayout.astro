@@ -1,5 +1,6 @@
 ---
 import { SITE } from "../site";
+import { Font } from "astro:assets";
 import "../styles/global.css";
 
 interface Props {
@@ -33,12 +34,8 @@ const canonical = canonicalURL.toString();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap"
-      rel="stylesheet"
-    />
+    <Font cssVariable="--font-newsreader" preload={[{ style: 'normal' }]} />
+    <Font cssVariable="--font-plex-mono" preload />
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />

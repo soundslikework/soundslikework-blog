@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Families come from the Astro `fonts` config (astro.config.mjs). */
+@theme inline {
+  --font-serif: var(--font-newsreader);
+  --font-mono: var(--font-plex-mono);
+}
+
 @theme {
   --color-paper: #F0EFEB;
   --color-ink: #2D2C29;
@@ -9,8 +15,6 @@
   --color-accent-light: #57867A;
   --color-accent-dark: #2C4F45;
 
-  --font-serif: "Newsreader", Georgia, serif;
-  --font-mono: "IBM Plex Mono", "Courier New", monospace;
 
   /* Mono dates only */
   --text-label: 0.6875rem;
