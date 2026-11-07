@@ -50,6 +50,10 @@
   @apply w-full border border-ink/30 bg-transparent px-4 py-3 text-ink focus:border-accent focus:outline-none transition-colors;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   font-family: var(--font-serif);
 }

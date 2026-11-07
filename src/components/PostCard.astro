@@ -26,8 +26,10 @@ const formattedDate = date.toLocaleDateString('en-US', {
         <Image
           src={coverImage}
           alt={`${gear?.make ?? ''} ${gear?.model ?? title}`}
-          width={680}
-          height={400}
+          width={1408}
+          height={384}
+          widths={[704, 1408]}
+          sizes="(min-width: 768px) 704px, calc(100vw - 3rem)"
           class="w-full object-cover h-48 rounded-sm"
         />
       </div>

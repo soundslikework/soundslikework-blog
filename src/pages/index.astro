@@ -36,8 +36,10 @@ const formattedDate = featured?.data.date.toLocaleDateString("en-US", {
               <Image
                 src={featured.data.coverImage}
                 alt={`${featured.data.gear?.make ?? ""} ${featured.data.gear?.model ?? featured.data.title}`}
-                width={680}
-                height={400}
+                width={1408}
+                height={640}
+                widths={[704, 1408]}
+                sizes="(min-width: 768px) 704px, calc(100vw - 3rem)"
                 class="w-full object-cover h-80 mb-5 rounded-sm"
               />
             )}

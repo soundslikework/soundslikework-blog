@@ -118,8 +118,10 @@ const reviewSchema = gear
             <Image
               src={coverImage}
               alt={`${gear?.make ?? ""} ${gear?.model ?? title}`}
-              width={680}
-              height={400}
+              width={1408}
+              height={828}
+              widths={[704, 1408]}
+              sizes="(min-width: 768px) 704px, calc(100vw - 3rem)"
               class="w-full object-cover rounded-sm"
             />
           )
