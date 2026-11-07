@@ -25,7 +25,7 @@ const { posts } = Astro.props;
   <Header />
   <main class="page-container py-12">
     <h1 class="page-title mb-2">#{tag}</h1>
-    <p class="text-ink/50 text-sm uppercase tracking-widest mb-10">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
+    <p class="text-ink-muted text-sm uppercase tracking-widest mb-10">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
     <div>
       {posts.map((post) => <PostCard post={post} />)}
     </div>

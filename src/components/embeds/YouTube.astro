@@ -11,7 +11,7 @@ const { id, title = 'YouTube video' } = Astro.props;
   <iframe
     src={`https://www.youtube-nocookie.com/embed/${id}`}
     title={title}
-    class="absolute inset-0 w-full h-full rounded-sm"
+    class="absolute inset-0 w-full h-full"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
     loading="lazy"
