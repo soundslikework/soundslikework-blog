@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  gear?: { make: string; model: string };
+  title: string;
+  height?: number; // crop height at 1408w; omit to keep the file's own shape
+  eager?: boolean; // the first big image on a page is the LCP, so don't lazy-load it
+  class?: string;
+}
+
+const { src, gear, title, height, eager = false, class: className } = Astro.props;
+const alt = gear ? `${gear.make} ${gear.model}` : title;
+---
+
+<Image
+  src={src}
+  alt={alt}
+  width={1408}
+  height={height}
+  widths={[704, 1408]}
+  sizes="(min-width: 768px) 704px, calc(100vw - 3rem)"
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : undefined}
+  class:list={['w-full rounded-sm', className]}
+/>

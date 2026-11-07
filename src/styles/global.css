@@ -10,7 +10,6 @@
   --color-accent-dark: #2C4F45;
 
   --font-serif: "Newsreader", Georgia, serif;
-  --font-sans: system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", "Courier New", monospace;
 
   /* Mono dates only */
@@ -65,6 +64,7 @@ body {
 
 /* Custom prose theme — used as `prose-retro` class */
 .prose-retro {
+  @apply prose-lg max-w-none;
   --tw-prose-body: var(--color-ink);
   --tw-prose-headings: var(--color-ink);
   --tw-prose-links: var(--color-accent);

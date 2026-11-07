@@ -1,13 +1,14 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
+import CoverImage from './CoverImage.astro';
 import { tagUrl } from '../posts';
 
 interface Props {
   post: CollectionEntry<'posts'>;
+  featured?: boolean; // bigger image and title, no tags; for the latest post
 }
 
-const { post } = Astro.props;
+const { post, featured = false } = Astro.props;
 const { title, date, description, coverImage, gear, tags, author } = post.data;
 const url = `/posts/${post.id}`;
 
@@ -19,45 +20,43 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<article class="border-b border-ink/15 py-8 group">
+<article class:list={['group', featured ? '' : 'border-b border-ink/15 py-8']}>
   <a href={url} class="no-underline block">
-    {coverImage ? (
-      <div class="mb-4">
-        <Image
-          src={coverImage}
-          alt={`${gear?.make ?? ''} ${gear?.model ?? title}`}
-          width={1408}
-          height={384}
-          widths={[704, 1408]}
-          sizes="(min-width: 768px) 704px, calc(100vw - 3rem)"
-          class="w-full object-cover h-48 rounded-sm"
-        />
+    {coverImage && (
+      <CoverImage
+        src={coverImage}
+        gear={gear}
+        title={title}
+        height={featured ? 640 : 384}
+        eager={featured}
+        class:list={['object-cover', featured ? 'h-80 mb-5' : 'h-48 mb-4']}
+      />
+    )}
+    {gear && (
+      <p class:list={['gear-name', featured ? 'mb-2' : 'mb-1']}>
+        {gear.make} / {gear.model}
+      </p>
+    )}
+    <h2 class:list={['font-serif font-bold text-ink group-hover:text-accent transition-colors', featured ? 'text-4xl leading-tight mb-3' : 'text-xl leading-snug mb-2']}>
+      {title}
+    </h2>
+    <p class:list={['text-ink-muted leading-relaxed', featured ? 'mb-4' : 'text-sm']}>{description}</p>
+    {featured && (
+      <div class="flex items-center gap-4">
+        <time class="label text-ink-muted">{formattedDate}</time>
+        <span class="font-mono text-xs text-accent ml-auto">Read →</span>
       </div>
-    ) : null}
-    <div>
-      {gear && (
-        <p class="gear-name mb-1">
-          {gear.make} / {gear.model}
-        </p>
-      )}
-      <h2 class="font-serif text-xl font-bold text-ink group-hover:text-accent transition-colors mb-2 leading-snug">
-        {title}
-      </h2>
-      <p class="text-ink-muted text-sm leading-relaxed">{description}</p>
-    </div>
+    )}
   </a>
-  <div class="flex items-center gap-4 mt-3">
-    <time class="label text-ink-muted">{formattedDate}</time>
-    {author && <span class="font-mono text-xs text-ink-muted">by {author}</span>}
-    <div class="flex gap-2">
-      {tags.map((tag) => (
-        <a
-          href={tagUrl(tag)}
-          class="tag"
-        >
-          #{tag}
-        </a>
-      ))}
+  {!featured && (
+    <div class="flex items-center gap-4 mt-3">
+      <time class="label text-ink-muted">{formattedDate}</time>
+      {author && <span class="font-mono text-xs text-ink-muted">by {author}</span>}
+      <div class="flex gap-2">
+        {tags.map((tag) => (
+          <a href={tagUrl(tag)} class="tag">#{tag}</a>
+        ))}
+      </div>
     </div>
-  </div>
+  )}
 </article>

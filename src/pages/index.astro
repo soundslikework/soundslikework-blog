@@ -5,19 +5,12 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PostCard from "../components/PostCard.astro";
 
-import { Image } from "astro:assets";
 import { getPosts } from "../posts";
 
 const posts = await getPosts();
 
 const [featured, ...rest] = posts;
 
-const formattedDate = featured?.data.date.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  timeZone: "UTC",
-});
 ---
 
 <BaseLayout
@@ -31,47 +24,7 @@ const formattedDate = featured?.data.date.toLocaleDateString("en-US", {
       featured && (
         <section class="mb-14">
           <h2 class="font-serif text-xl font-bold mb-6">Latest Post</h2>
-          <a href={`/posts/${featured.id}`} class="no-underline group block">
-            {featured.data.coverImage && (
-              <Image
-                src={featured.data.coverImage}
-                alt={`${featured.data.gear?.make ?? ""} ${featured.data.gear?.model ?? featured.data.title}`}
-                width={1408}
-                height={640}
-                widths={[704, 1408]}
-                sizes="(min-width: 768px) 704px, calc(100vw - 3rem)"
-                class="w-full object-cover h-80 mb-5 rounded-sm"
-              />
-            )}
-            {featured.data.gear && (
-              <p class="gear-name mb-2">
-                {featured.data.gear.make} / {featured.data.gear.model}
-              </p>
-            )}
-            <h2 class="font-serif text-4xl font-bold text-ink group-hover:text-accent transition-colors mb-3 leading-tight">
-              {featured.data.title}
-            </h2>
-            <p class="text-ink-muted leading-relaxed mb-4">
-              {featured.data.description}
-            </p>
-            <div class="flex items-center gap-4">
-              <time class="label text-ink-muted">
-                {formattedDate}
-              </time>
-              {featured.data.tags.length > 0 && (
-                <div class="flex gap-2">
-                  {featured.data.tags.map((tag) => (
-                    <span class="tag">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-              <span class="font-mono text-xs text-accent ml-auto">
-                Read →
-              </span>
-            </div>
-          </a>
+          <PostCard post={featured} featured />
         </section>
       )
     }
