@@ -28,6 +28,7 @@ export default defineConfig({
       styles: ['normal', 'italic'],
       subsets: ['latin'],
       fallbacks: ['Georgia', 'serif'],
+      display: 'optional', // no swap: use the font if it's ready at first paint, else the fallback for this view
     },
     {
       provider: fontProviders.google(),
@@ -37,6 +38,7 @@ export default defineConfig({
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['Courier New', 'monospace'],
+      display: 'optional',
     },
   ],
 
