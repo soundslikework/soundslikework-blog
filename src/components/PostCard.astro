@@ -37,24 +37,24 @@ const formattedDate = date.toLocaleDateString('en-US', {
     )}
     <div>
       {gear && (
-        <p class="font-mono text-accent text-[10px] uppercase tracking-[0.2em] font-medium mb-1">
+        <p class="label text-accent tracking-label-wide font-medium mb-1">
           {gear.make} / {gear.model}
         </p>
       )}
       <h2 class="font-serif text-xl font-bold text-ink group-hover:text-accent transition-colors mb-2 leading-snug">
         {title}
       </h2>
-      <p class="font-body text-ink/70 text-sm leading-relaxed">{description}</p>
+      <p class="text-ink/70 text-sm leading-relaxed">{description}</p>
     </div>
   </a>
   <div class="flex items-center gap-4 mt-3">
-    <time class="font-mono text-[10px] text-ink/50 uppercase tracking-[0.15em]">{formattedDate}</time>
-    {author && <span class="font-mono text-[10px] text-ink/50">by {author}</span>}
+    <time class="label text-ink/50 tracking-label">{formattedDate}</time>
+    {author && <span class="font-mono text-label text-ink/50">by {author}</span>}
     <div class="flex gap-2">
       {tags.map((tag) => (
         <a
           href={tagUrl(tag)}
-          class="font-mono text-[10px] text-accent/70 hover:text-accent uppercase tracking-[0.15em] transition-colors"
+          class="label text-accent/70 hover:text-accent tracking-label transition-colors"
         >
           #{tag}
         </a>

@@ -12,6 +12,43 @@
   --font-sans: system-ui, sans-serif;
   --font-body: "Lora", Georgia, serif;
   --font-mono: "IBM Plex Mono", "Courier New", monospace;
+
+  /* Small mono labels: dates, tags, eyebrows, footer */
+  --text-label: 0.625rem;
+  --text-micro: 0.5625rem;
+  --tracking-label: 0.15em;
+  --tracking-label-wide: 0.2em;
+  --tracking-eyebrow: 0.25em;
+  --tracking-footer: 0.3em;
+}
+
+/* Header, main and footer must all use this so columns stay flush. */
+@utility page-container {
+  @apply max-w-2xl mx-auto px-6 md:px-8;
+}
+
+/* Mono micro-label; pair with a tracking-* and a text color. */
+@utility label {
+  @apply font-mono text-label uppercase;
+}
+
+@utility page-title {
+  @apply font-serif text-4xl font-bold;
+}
+
+@utility form-label {
+  @apply block font-mono text-xs uppercase tracking-widest text-ink/60 mb-2;
+}
+
+@utility form-field {
+  @apply w-full border border-ink/30 bg-transparent px-4 py-3 text-ink focus:border-accent focus:outline-none transition-colors;
+}
+
+/* Fixed full-screen paper texture over the page. */
+@utility paper-grain {
+  @apply pointer-events-none fixed inset-0 z-50 opacity-25;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
 }
 
 body {
