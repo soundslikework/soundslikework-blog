@@ -1,4 +1,5 @@
 ---
+import { SITE } from "../site";
 const currentPath = Astro.url.pathname;
 const isHome = currentPath === '/';
 
@@ -17,13 +18,13 @@ const navLinks = [
       <h1 class="font-serif text-2xl font-bold text-ink m-0 p-0 leading-none">
         <a href="/" class="no-underline hover:text-accent transition-colors flex items-baseline gap-2">
           <span class="signal-dot text-accent text-[10px] leading-none relative -top-0.5">●</span>
-          Sounds Like Work
+          {SITE.name}
         </a>
       </h1>
     ) : (
       <a href="/" class="font-serif text-2xl font-bold text-ink no-underline hover:text-accent transition-colors flex items-baseline gap-2">
         <span class="signal-dot text-accent text-[10px] leading-none relative -top-0.5">●</span>
-        Sounds Like Work
+        {SITE.name}
       </a>
     )}
     <nav>

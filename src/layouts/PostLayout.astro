@@ -1,9 +1,11 @@
 ---
+import { SITE } from "../site";
 import BaseLayout from "./BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Comments from "../components/Comments.astro";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
+import { tagUrl } from "../posts";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -20,17 +22,17 @@ const formattedDate = date.toLocaleDateString("en-US", {
   timeZone: "UTC",
 });
 
-// Build an absolute URL for og:image if the post has a cover image.
-// Astro's image optimizer resolves `coverImage` to a final URL at build time;
-// cast via `as any` because the type reflects the import, not the built output.
-const ogImage =
-  coverImage && Astro.site
-    ? new URL((coverImage as any).src, Astro.site).href
-    : undefined;
+// og:image: a 1200x630 crop, not the multi-MB original (social crawlers skip big files).
+const ogImage = coverImage
+  ? new URL(
+      (await getImage({ src: coverImage, width: 1200, height: 630, format: "jpg" })).src,
+      Astro.site,
+    ).href
+  : undefined;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 const displayTitle = seoTitle ?? title;
-const postAuthor = author ?? "Adam Brady";
+const postAuthor = author ?? SITE.author;
 
 const blogPostingSchema = {
   "@context": "https://schema.org",
@@ -42,8 +44,8 @@ const blogPostingSchema = {
   url: canonicalURL.toString(),
   publisher: {
     "@type": "Organization",
-    name: "Sounds Like Work",
-    url: "https://soundslike.work",
+    name: SITE.name,
+    url: SITE.url,
   },
   ...(ogImage && { image: ogImage }),
 };
@@ -59,6 +61,7 @@ const reviewSchema = gear
       },
       author: { "@type": "Person", name: postAuthor },
       reviewBody: description,
+      datePublished: date.toISOString(),
       url: canonicalURL.toString(),
     }
   : null;
@@ -104,7 +107,7 @@ const reviewSchema = gear
               <div class="flex gap-2">
                 {tags.map((tag) => (
                   <a
-                    href={`/tags/${tag}`}
+                    href={tagUrl(tag)}
                     class="font-mono text-accent/80 hover:text-accent uppercase tracking-[0.15em] text-[10px] transition-colors"
                   >
                     #{tag}

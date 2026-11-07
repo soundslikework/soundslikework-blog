@@ -1,3 +1,4 @@
+import { SITE } from './src/site.ts';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
@@ -6,8 +7,12 @@ import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  site: 'https://soundslike.work',
-  integrations: [mdx(), sitemap()],
+  site: SITE.url,
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/tags/') })],
+
+  redirects: {
+    '/posts/ibanez-de7---oscillation-station': '/posts/ibanez-de7-oscillation-station',
+  },
 
   vite: {
     plugins: [tailwindcss()],

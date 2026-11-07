@@ -8,15 +8,16 @@
     "preview": "npm run build && wrangler dev",
     "astro": "astro",
     "new-post": "node scripts/new-post.js",
+    "test": "node --experimental-strip-types --test src/lib/*.test.ts",
     "deploy": "npm run build && wrangler deploy",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/mdx": "^4.3.13",
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.2",
-    "astro": "^5.17.1",
-    "astro-seo": "^1.1.0"
+    "astro": "^5.17.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
