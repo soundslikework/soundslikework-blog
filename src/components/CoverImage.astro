@@ -8,10 +8,11 @@ interface Props {
   gear?: { make: string; model: string };
   title: string;
   eager?: boolean; // the first big image on a page is the LCP, so don't lazy-load it
+  uncropped?: boolean; // keep the photo's own shape instead of the 16:9 crop
   class?: string;
 }
 
-const { src, gear, title, eager = false, class: className } = Astro.props;
+const { src, gear, title, eager = false, uncropped = false, class: className } = Astro.props;
 const alt = gear ? `${gear.make} ${gear.model}` : title;
 ---
 
@@ -20,11 +21,11 @@ const alt = gear ? `${gear.make} ${gear.model}` : title;
   src={src}
   alt={alt}
   width={1408}
-  height={792}
-  fit="cover"
+  height={uncropped ? undefined : 792}
+  fit={uncropped ? undefined : 'cover'}
   widths={IMAGE_WIDTHS}
   sizes={IMAGE_SIZES}
   loading={eager ? 'eager' : 'lazy'}
   fetchpriority={eager ? 'high' : undefined}
-  class:list={['w-full aspect-video object-cover rounded-sm', className]}
+  class:list={['w-full rounded-sm', uncropped ? 'h-auto max-h-[80vh] object-contain' : 'aspect-video object-cover', className]}
 />
